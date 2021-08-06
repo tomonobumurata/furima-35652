@@ -4,7 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-
+  has_many :items
+  
   # 英数字混合6文字以上の正規表現
   VALID_PASSWORD_REGIX = /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,}/
   validates :password, format: {with: VALID_PASSWORD_REGIX} 

@@ -91,10 +91,26 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price is not a number")
       end
 
+      it 'priceが半角英数混合の場合は出品できない' do
+        @item.price = '3 hundred'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+
       it 'priceが日本語の場合は出品できない' do
         @item.price = 'さんびゃくえん'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+
+      it '各ActiveHashのカラムのidが1では出品できない' do
+        @item.category_id = 1
+        @item.status_id = 1
+        @item.shipping_fee_id = 1
+        @item.prefecture_id = 1
+        @item.days_to_ship_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category must be other than 1", "Status must be other than 1", "Shipping fee must be other than 1", "Prefecture must be other than 1", "Days to ship must be other than 1")
       end
     end
   end

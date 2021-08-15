@@ -105,8 +105,6 @@ RSpec.describe Item, type: :model do
 
       it 'category_idが1の場合は出品できない' do
         @item.category_id = 1
-        @item.prefecture_id = 1
-        @item.days_to_ship_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Category must be other than 1")
       end

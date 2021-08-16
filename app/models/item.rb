@@ -1,5 +1,4 @@
 class Item < ApplicationRecord
-
   belongs_to :user
   has_one_attached :image
 
@@ -10,22 +9,21 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :days_to_ship
 
-
   with_options presence: true do
-    validates :title 
+    validates :title
     validates :instruction
-    validates :image 
+    validates :image
 
     with_options numericality: { other_than: 1 } do
       validates :category_id
-      validates :status_id 
+      validates :status_id
       validates :shipping_fee_id
       validates :prefecture_id
-      validates :days_to_ship_id 
+      validates :days_to_ship_id
     end
 
     with_options format: { with: /\A[0-9]+\z/ } do
-      validates :price, numericality: { only_integer: true, greater_than: 299, less_than: 10000000 }
+      validates :price, numericality: { only_integer: true, greater_than: 299, less_than: 10_000_000 }
     end
   end
 end

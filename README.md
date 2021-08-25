@@ -15,7 +15,7 @@
 
 ### Association
 - has_many :items
-- has_many :purchase_records
+- has_many :records
 
 
 ## itemsテーブル
@@ -34,10 +34,10 @@
 
 ### Association
 - belongs_to :user
-- has_one :purchase_record
+- has_one :record
 
 
-## purchase_recordsテーブル
+## recordsテーブル
 
 | Column              | Type         | Options                        |
 | ------------------- | ------------ | ------------------------------ |
@@ -47,11 +47,11 @@
 ### Association
 - belongs_to :user
 - belongs_to :item
-- has_one :shipping_address
+- has_one :address
 
 
 
-## shipping_addressesテーブル
+## addressesテーブル
 
 | Column              | Type         | Options                        |
 | ------------------- | ------------ | ------------------------------ |
@@ -61,9 +61,9 @@
 | address             | string       | null: false                    |
 | building_name       | string       |                                |
 | phone_number        | string       | null: false                    |
-| purchase_record     | references   | null: false, foreign_key: true |
+| record              | references   | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :purchase_record
+- belongs_to :record
 
 

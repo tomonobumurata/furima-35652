@@ -1,4 +1,6 @@
 class RecordsController < ApplicationController
+before_action :find_item, only: [:index, :create]
+
   def index
     @record_address = RecordAddress.new
   end
@@ -27,5 +29,9 @@ class RecordsController < ApplicationController
       item_id: params[:item_id],
       user_id: current_user.id
     )
+  end
+
+  def find_item
+    @item = Item.find(params[:item_id])
   end
 end

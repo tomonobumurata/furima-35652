@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :items
+  has_many :records
 
   # 英数字混合6文字以上の正規表現
   VALID_PASSWORD_REGIX = /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,}/

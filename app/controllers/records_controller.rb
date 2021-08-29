@@ -1,5 +1,6 @@
 class RecordsController < ApplicationController
-before_action :find_item, only: [:index, :create]
+  before_action :authenticate_user!
+  before_action :find_item, only: [:index, :create]
 
   def index
     @record_address = RecordAddress.new
@@ -8,6 +9,7 @@ before_action :find_item, only: [:index, :create]
   def create
     @record_address = RecordAddress.new(record_params)
     if @record_address.valid?
+      pay_item
       @record_address.save
       redirect_to root_path
     else
@@ -26,9 +28,19 @@ before_action :find_item, only: [:index, :create]
       :building_name,
       :phone_number,
     ).merge(
+      token: params[:token],
       item_id: params[:item_id],
       user_id: current_user.id
     )
+  end
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+      Payjp::Charge.create(
+        amount: @item.price,
+        card: record_params[:token],
+        currency: 'jpy'
+      )
   end
 
   def find_item

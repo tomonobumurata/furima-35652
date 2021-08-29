@@ -1,8 +1,9 @@
 class RecordAddress
   include ActiveModel::Model
-  attr_accessor :postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number, :user_id, :item_id
+  attr_accessor :postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number, :token, :user_id, :item_id
 
   with_options presence: true do
+    validates :token
     validates :user_id
     validates :item_id
     # 数字3桁・ハイフン・数字4桁の並びのみ許可

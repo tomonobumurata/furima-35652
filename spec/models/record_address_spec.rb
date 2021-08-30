@@ -56,14 +56,32 @@ RSpec.describe RecordAddress, type: :model do
         expect(@record_address.errors.full_messages).to include("Phone number can't be blank")
       end
 
+      it 'user_idが紐付いていない場合は購入できない' do
+        @record_address.user_id = nil
+        @record_address.valid?
+        expect(@record_address.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが紐付いていない場合は購入できない' do
+        @record_address.item_id = nil
+        @record_address.valid?
+        expect(@record_address.errors.full_messages).to include("Item can't be blank")
+      end
+
       it 'postal_codeにハイフンがない場合は購入できない' do
         @record_address.postal_code = '12345678'
         @record_address.valid?
         expect(@record_address.errors.full_messages).to include("Postal code input correctly")
       end
 
-      it 'phone_numberは10桁または11桁でない場合は購入できない' do
+      it 'phone_numberが9桁いないの場合は購入できない' do
         @record_address.phone_number = '123456789'
+        @record_address.valid?
+        expect(@record_address.errors.full_messages).to include("Phone number input only number")
+      end
+
+      it 'phone_numberが12桁以上の場合は購入できない' do
+        @record_address.phone_number = '123456789101'
         @record_address.valid?
         expect(@record_address.errors.full_messages).to include("Phone number input only number")
       end

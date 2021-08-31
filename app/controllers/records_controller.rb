@@ -3,7 +3,7 @@ class RecordsController < ApplicationController
   before_action :find_item, only: [:index, :create]
 
   def index
-    if user_signed_in? && current_user.id != @item.user_id  && @item.record == nil
+    if current_user.id != @item.user_id  && @item.record == nil
       @record_address = RecordAddress.new
     else
       redirect_to root_path

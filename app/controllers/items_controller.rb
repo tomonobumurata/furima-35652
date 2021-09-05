@@ -24,7 +24,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    unless @item.record == nill
+    unless @item.record == nil
       redirect_to root_path
     end
   end
